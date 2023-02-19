@@ -284,7 +284,6 @@ Window {
 					}
 					
 					LineSeries {
-					
 						id:lines2
 						axisX: axisX
 						axisY: axisY1
@@ -341,7 +340,7 @@ Window {
 			id : cb1
 			x : 130
 			y : 80
-			//model: backend.get_port_list_info()
+			model: backend.get_port_list_info()
 		}
 		
 		
@@ -447,8 +446,55 @@ Window {
 		value: 0
 		from: 0
 		to: 60
+		stepSize : 5
 		
 	}
+	
+	
+	Slider {
+		id : slider_period
+		x: 10
+		y: 0
+		height : 20
+		width : 250
+		value: -100
+		from: -100
+		to: 100
+		stepSize : 1
+		visible : false
+		
+		Text{
+		x : 260
+		color : "blue"
+		text : slider_period.value
+		
+		
+		}
+		
+		
+	}
+	
+	Slider {
+		id : slider_period2
+		x: 30
+		y: -30
+		height : 20
+		width : 250
+		value: -100
+		from: -100
+		to: 100
+		stepSize : 1
+		visible : false
+		Text{
+		x : 260
+		color : "yellow"
+		text : slider_period2.value
+		
+		
+		}
+		
+	}
+	
 	
 	Text{
 		x : 280
@@ -567,12 +613,21 @@ Window {
 				backend.update1(cv.series(1));
 				backend.update2(cv.series(2));
 				
+				if (run.checked == true){
+					backend.freq(slider.value)
+				} else {
+					backend.freq(0)
+				}
 				
-				backend.freq(slider.value)
+				
+				backend.period(slider_period.value)
+				backend.period2(slider_period2.value)
+				
 				
 				if (cw.checked == true){
 					cw_color.color = "#ce4978"
-					
+					lines2.color = "yellow"
+					lines3.color = "blue"
 					
 				}
 				
@@ -583,12 +638,25 @@ Window {
 				
 				if (ccw.checked == true){
 					ccw_color.color = "#ce4978"
-					
+					lines2.color = "blue"
+					lines3.color = "yellow"
 					
 				}
 				
 				if (ccw.checked == false){
 					ccw_color.color = "#0077b6"
+					
+				}
+				
+				
+				if (run.checked == true){
+					run_color.color = "#ce4978"
+					
+					
+				}
+				
+				if (run.checked == false){
+					run_color.color = "#0077b6"
 					
 				}
 				
